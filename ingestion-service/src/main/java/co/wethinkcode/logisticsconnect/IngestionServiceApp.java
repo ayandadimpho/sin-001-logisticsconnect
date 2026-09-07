@@ -74,11 +74,28 @@ public class IngestionServiceApp {
     }
 
     public static String cleanSortingCenter(String sortingCenter) {
-        String cleanedSortingCenter = sortingCenter.trim().replaceAll("\\s+", " ");
+        if (sortingCenter == null) {
+            return null;
+        }
+        String cleanedSortingCenter = sortingCenter.trim().replaceAll("\\s+", " ").toUpperCase();
         return cleanedSortingCenter;
     }
 
     public static String cleanActiveStatus(String activeStatus) {
-        return activeStatus;
+        String cleaned = activeStatus.trim().replaceAll("\\s+", " ").toLowerCase();
+
+        if (cleaned.equals("1") || cleaned.equals("y") || cleaned.equals("yes") || cleaned.equals("true") || cleaned.equals("active")) {
+            cleaned = "Active";
+        }
+        if (cleaned.equals("0") || cleaned.equals("no") || cleaned.equals("false")) {
+            cleaned = "Inactive";
+        }
+        if (cleaned.equals("n/a")) {
+            cleaned = "N/A";
+        }
+        if (cleaned.equals("unknown")) {
+            cleaned = "Unknown";
+        }
+        return cleaned;
     }
 }
