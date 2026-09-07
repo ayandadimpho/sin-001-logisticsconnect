@@ -2,9 +2,11 @@ package co.wethinkcode.logisticsconnect;
 
 import io.javalin.Javalin;
 
+import java.io.*;
+
 public class IngestionServiceApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Javalin app = Javalin.create().start(7050);
 
         app.get("/health", ctx -> ctx.result("OK"));
@@ -12,6 +14,29 @@ public class IngestionServiceApp {
         // TODO: read and clean src/main/resources/hubs-global.csv (hubs, sorting centers, regional districts data —
         // trim whitespace, fix casing, normalize dates/booleans) and expose the
         // cleaned records here for the other services to consume.
+//        File file = new File("ingestion-service/src/main/resources/hubs-global.csv");
+//        System.out.println(file.getAbsolutePath());
+//        System.out.println(file.exists());
+
+        readCsv();
+
+    }
+    public static void readCsv(){
+        try {BufferedReader reader = new BufferedReader(new FileReader("ingestion-service/src/main/resources/hubs-global.csv"));
+
+        String line =reader.readLine();
+
+        while (line != null) {
+            System.out.println(line);
+            line = reader.readLine();
+
+
+        }
+    } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
     }
 
     public static String cleanHubId(String hubId) {
