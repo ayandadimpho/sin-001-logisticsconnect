@@ -13,4 +13,13 @@ public class IngestionServiceApp {
         // trim whitespace, fix casing, normalize dates/booleans) and expose the
         // cleaned records here for the other services to consume.
     }
+
+    public static String cleanHubId(String hubId) {
+        String cleaned = hubId.trim().replaceAll("\\s+", " ");
+
+        char firstCharacter = cleaned.charAt(0);
+        firstCharacter = Character.toUpperCase(firstCharacter);
+        String newString = firstCharacter + cleaned;
+        return newString;
+    }
 }
