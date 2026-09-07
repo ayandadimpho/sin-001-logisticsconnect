@@ -26,9 +26,19 @@ public class IngestionServiceApp {
 
         String line =reader.readLine();
 
+        line = reader.readLine();
+
+
         while (line != null) {
+            String [] columns = line.split(",");
+            String hubId = cleanHubId(columns[0]);
+            String province = cleanProvince(columns[1]);
+            String sortingCentre = cleanSortingCentre(columns[2]);
+            String activeStatus = cleanActiveStatus(columns[3]);
+
             System.out.println(line);
             line = reader.readLine();
+
 
 
         }
@@ -40,11 +50,26 @@ public class IngestionServiceApp {
     }
 
     public static String cleanHubId(String hubId) {
-        String cleaned = hubId.trim().replaceAll("\\s+", " ");
+        String cleaningHub = hubId.trim().replaceAll("\\s+", " ");
 
-        char firstCharacter = cleaned.charAt(0);
+        char firstCharacter = cleaningHub.charAt(0);
         firstCharacter = Character.toUpperCase(firstCharacter);
-        String newString = firstCharacter + cleaned;
-        return newString;
+        String cleanedHub = firstCharacter + cleaningHub;
+        return cleanedHub;
+    }
+
+    public static String cleanProvince(String province) {
+        String cleanedProvince = province.trim().replaceAll("\\s+", " ");
+
+        return cleanedProvince;
+    }
+
+    public static String cleanSortingCenter(String sortingCenter) {
+        String cleanedSortingCenter = sortingCenter.trim().replaceAll("\\s+", " ");
+        return cleanedSortingCenter;
+    }
+
+    public static String cleanActiveStatus(String activeStatus) {
+        return activeStatus;
     }
 }
