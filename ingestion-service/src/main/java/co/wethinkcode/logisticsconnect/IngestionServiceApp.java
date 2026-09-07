@@ -60,14 +60,15 @@ public class IngestionServiceApp {
     }
 
     public static String cleanProvince(String province) {
-        String cleanedProvince = province.trim().replaceAll("\\s+", " ").toUpperCase();
-
-        if (cleanedProvince.equals("KWAZULU-NATAL") || province.equals("KWA-ZULU NATAL") || province.equals("KWAZULU NATAL")) {
-            cleanedProvince = "KWAZULU-NATAL";
+        if (province == null) {
+            return null;
         }
 
+        String cleanedProvince = province.trim().replaceAll("\\s+", " ").toUpperCase();
 
-
+        if (cleanedProvince.equals("KWAZULU-NATAL") || cleanedProvince.equals("KWA-ZULU NATAL") || cleanedProvince.equals("KWAZULU NATAL")) {
+            cleanedProvince = "KWAZULU-NATAL";
+        }
 
         return cleanedProvince;
     }
