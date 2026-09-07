@@ -23,7 +23,7 @@ public class IngestionServiceApp {
     }
     public static void readCsv(){
         try {BufferedReader reader = new BufferedReader(new FileReader("ingestion-service/src/main/resources/hubs-global.csv"));
-
+        // reading the header
         String line =reader.readLine();
 
         line = reader.readLine();
@@ -31,12 +31,13 @@ public class IngestionServiceApp {
 
         while (line != null) {
             String [] columns = line.split(",");
+
             String hubId = cleanHubId(columns[0]);
             String province = cleanProvince(columns[1]);
-            String sortingCentre = cleanSortingCentre(columns[2]);
+            String sortingCentre = cleanSortingCenter(columns[2]);
             String activeStatus = cleanActiveStatus(columns[3]);
 
-            System.out.println(line);
+
             line = reader.readLine();
 
 
@@ -59,7 +60,14 @@ public class IngestionServiceApp {
     }
 
     public static String cleanProvince(String province) {
-        String cleanedProvince = province.trim().replaceAll("\\s+", " ");
+        String cleanedProvince = province.trim().replaceAll("\\s+", " ").toUpperCase();
+
+        if (cleanedProvince.equals("KWAZULU-NATAL") || province.equals("KWA-ZULU NATAL") || province.equals("KWAZULU NATAL")) {
+            cleanedProvince = "KWAZULU-NATAL";
+        }
+
+
+
 
         return cleanedProvince;
     }
