@@ -22,8 +22,8 @@ public class IngestionServiceApp {
         readCsv();
 
     }
-    public static ArrayList<String> readCsv() {
-        ArrayList<String> cleanedRows = new ArrayList<>();
+    public static ArrayList<Hub> readCsv() {
+        ArrayList<Hub> cleanedHubs = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader("ingestion-service/src/main/resources/hubs-global.csv"));
             // reading the header
@@ -41,9 +41,9 @@ public class IngestionServiceApp {
                 String activeStatus = cleanActiveStatus(columns[3]);
 
 
-                String cleanedRow = hubId + "," + province + "," + sortingCenter + "," + activeStatus;
+                Hub hub = new Hub(hubId, province, sortingCenter, activeStatus);
 
-                cleanedRows.add(cleanedRow);
+                cleanedHubs.add(hub);
 
                 line = reader.readLine();
 
@@ -53,7 +53,7 @@ public class IngestionServiceApp {
             System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
-        }return cleanedRows;
+        }return cleanedHubs;
     }
 
     public static String cleanHubId(String hubId) {
