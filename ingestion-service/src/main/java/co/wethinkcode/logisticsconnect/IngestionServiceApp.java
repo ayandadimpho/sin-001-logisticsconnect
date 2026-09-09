@@ -83,6 +83,41 @@ public class IngestionServiceApp {
         return cleanedProvince;
     }
 
+    public static String fillMissingProvince(String province, String sortingCenter) {
+        if (province != null && !province.isEmpty()) {
+            return province;
+        }
+        if (sortingCenter.equals("JOHANNESBURG CENTRAL") || sortingCenter.equals("PRETORIA NORTH")) {
+            province = "GAUTENG";
+        }
+        if (sortingCenter.equals("CAPE TOWN PORT")) {
+            province = "WESTERN CAPE";
+        }
+        if (sortingCenter.equals("KIMBERLEY HUB")) {
+            province = "NORTHERN CAPE";
+        }
+        if (sortingCenter.equals("DURBAN HARBOUR")) {
+            province = "KWAZULU-NATAL";
+        }
+        if (sortingCenter.equals("BLOEMFONTEIN HUB")) {
+            province = "FREE STATE";
+        }
+        if (sortingCenter.equals("PORT ELIZABETH HUB")) {
+            province = "EASTERN CAPE";
+        }
+        if (sortingCenter.equals("NELSPRUIT HUB")) {
+            province = "MPUMALANGA";
+        }
+        if (sortingCenter.equals("RUSTENBURG HUB")) {
+            province = "NORTH WEST";
+        }
+        if (sortingCenter.equals("POLOKWANE HUB")) {
+            province = "LIMPOPO";
+        }
+
+        return province;
+    }
+
     public static String cleanSortingCenter(String sortingCenter) {
         if (sortingCenter == null) {
             return null;
