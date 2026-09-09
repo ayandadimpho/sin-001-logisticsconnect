@@ -70,7 +70,7 @@ public class IngestionServiceApp {
     }
 
     public static String cleanProvince(String province) {
-        if (province == null) {
+        if (province == null || province.isEmpty()) {
             return null;
         }
 
