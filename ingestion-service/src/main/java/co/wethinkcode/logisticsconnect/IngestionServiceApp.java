@@ -40,6 +40,8 @@ public class IngestionServiceApp {
                 String sortingCenter = cleanSortingCenter(columns[2]);
                 String activeStatus = cleanActiveStatus(columns[3]);
 
+                province = fillMissingProvince(province,sortingCenter);
+
 
                 Hub hub = new Hub(hubId, province, sortingCenter, activeStatus);
 

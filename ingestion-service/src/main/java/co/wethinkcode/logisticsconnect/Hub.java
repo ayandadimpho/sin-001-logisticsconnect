@@ -12,4 +12,19 @@ public class Hub {
         this.sortingCenter = sortingCenter;
         this.active = active;
     }
+
+    public String getHubId() {
+        return hubId;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public String getSortingCenter() {
+        return sortingCenter;
+    }
+    public String getActive() {
+        return active;
+    }
 }
