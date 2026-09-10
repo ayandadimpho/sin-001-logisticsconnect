@@ -147,5 +147,20 @@ public class IngestionServiceApp {
         return cleaned;
     }
 
+    public static void addOrResolveDuplicate(ArrayList<Hub> cleanedHubs, Hub hub) {
+        for (int i= 0; i < cleanedHubs.size();i++) {
+            Hub existingHub = cleanedHubs.get(i);
+            if (existingHub.getProvince().equals(hub.getProvince()) && existingHub.getSortingCenter().equals(hub.getSortingCenter())) {
+                if (hub.getActive().equals("Active") && existingHub.getActive().equals("Inactive")) {
+
+                    cleanedHubs.set(i, hub);
+                }
+                return;
+            }
+        }
+        cleanedHubs.add(hub);
+    }
+
+
 
 }
