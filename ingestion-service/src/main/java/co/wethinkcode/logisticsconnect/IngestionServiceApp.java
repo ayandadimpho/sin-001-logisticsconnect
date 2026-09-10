@@ -56,7 +56,11 @@ public class IngestionServiceApp {
             System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
-        }return cleanedHubs;
+        }
+//        for (Hub hub: cleanedHubs) {
+//            System.out.println(hub.getProvince() + " | " + hub.getSortingCenter() + " | " + hub.getActive());
+//        }
+        return cleanedHubs;
     }
 
     public static String cleanHubId(String hubId) {
