@@ -29,6 +29,7 @@ public class IngestionServiceApp {
             // reading the header
             String line = reader.readLine();
 
+            //reading the first row of data
             line = reader.readLine();
 
 
@@ -45,7 +46,7 @@ public class IngestionServiceApp {
 
                 Hub hub = new Hub(hubId, province, sortingCenter, activeStatus);
 
-                cleanedHubs.add(hub);
+                addOrResolveDuplicate(cleanedHubs, hub);
 
                 line = reader.readLine();
 
