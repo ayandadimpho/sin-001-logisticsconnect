@@ -11,6 +11,7 @@ public class IngestionServiceApp {
         Javalin app = Javalin.create().start(7050);
 
         app.get("/health", ctx -> ctx.result("OK"));
+        app.get("/hubs", ctx -> ctx.json(readCsv()));
 
         // TODO: read and clean src/main/resources/hubs-global.csv (hubs, sorting centers, regional districts data —
         // trim whitespace, fix casing, normalize dates/booleans) and expose the
@@ -19,7 +20,7 @@ public class IngestionServiceApp {
 //        System.out.println(file.getAbsolutePath());
 //        System.out.println(file.exists());
 
-        readCsv();
+        //readCsv();
 
     }
     public static ArrayList<Hub> readCsv() {
