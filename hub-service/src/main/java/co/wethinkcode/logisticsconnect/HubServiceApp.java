@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class HubServiceApp {
 
@@ -13,10 +14,14 @@ public class HubServiceApp {
         Javalin app = Javalin.create().start(7051);
 
         app.get("/health", ctx -> ctx.result("OK"));
-        app.get("/hubs", ctx -> ctx.result(getHubsFromIngestion()));
-
         // TODO (Serves provinces and sorting centers (place-name source of truth).)
         // Add domain endpoints for hub-service here.
+        app.get("/hubs", ctx -> ctx.result(getHubsFromIngestion()));
+        app.get("/hubs/{hubId}", ctx -> {
+            String hubId = ctx.pathParam("hubId");
+            Hub hub = findHubById(hubId);
+            ctx.json(hub);
+        });
     }
 
     public static String getHubsFromIngestion() {
@@ -29,8 +34,25 @@ public class HubServiceApp {
 
             return response.body();
 
-        }catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             return "Error conecting to ingestion service: " + e.getMessage();
         }
+    }
+
+    public static Hub findHubById(String hubId) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Hub[] hubs = mapper.readValue(getHubsFromIngestion(), Hub[].class);
+
+            for (Hub hub : hubs) {
+                if (hub.getHubId().equals(hubId)) {
+                    return hub;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 }
