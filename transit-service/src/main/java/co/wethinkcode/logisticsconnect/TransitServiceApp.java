@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Map;
 
 
 public class TransitServiceApp {
@@ -49,6 +50,14 @@ public class TransitServiceApp {
 
         // TODO (Calculates estimated arrival windows based on hub and delay stage.)
         // Add domain endpoints for transit-service here.
+        app.get("/transit-service/{hubId}", ctx -> {
+            String hubId = ctx.pathParam("hubId");
+
+            String hub = getHubFromHubService(hubId);
+            String delayStage = getDelayStageFromDelayService(hubId);
+
+            ctx.json(Map.of("hub", hub, "delayStage", delayStage));
+        });
     }
 }
 
