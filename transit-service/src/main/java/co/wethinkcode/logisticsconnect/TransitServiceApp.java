@@ -1,8 +1,28 @@
 package co.wethinkcode.logisticsconnect;
 
 import io.javalin.Javalin;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 
 public class TransitServiceApp {
+
+    public static String getHubFromHubService(String hubId) {
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:7051/hubs/" + hubId)).GET().build();
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            return "Error connecting to hub service " + e.getMessage();
+        }
+    }
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(7053);
